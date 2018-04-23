@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>加班计算器</title>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+
+	<header>
+		<h1>加班计算器</h1>
+	</header>
+
+	<main>
+		<ul class="cal_list">
+
+			<li class="cal_item">
+				<span class="text_weekdays">周一</span> 加班至<input type="" class="input_hour">:<input type="" class="input_minute">:00
+			</li>
+
+			<li class="cal_item">
+				<span class="text_weekdays">周二</span> 加班至<input type="" class="input_hour">:<input type="" class="input_minute">:00
+			</li>
+
+			<li class="cal_item">
+				<span class="text_weekdays">周三</span> 加班至<input type="" class="input_hour">:<input type="" class="input_minute">:00
+			</li>
+
+			<li class="cal_item">
+				<span class="text_weekdays">周四</span> 加班至<input type="" class="input_hour">:<input type="" class="input_minute">:00
+			</li>
+
+			<li class="cal_item">
+				<span class="text_weekdays">周五</span> 加班至<input type="" class="input_hour">:<input type="" class="input_minute">:00
+			</li>
+
+			<!-- <li class="cal_item">
+				<span class="text_weekdays">周六</span> 加班至<input type="" class="input_hour">:<input type="" class="input_minute">:00
+			</li> -->
+
+		</ul>
+		<button class="btn_cal">计算</button>
+		<p>这周总共加班了 <span id="overtime"></span> 个小时！</p>
+	</main>
+
+
+	<script type="text/javascript">
+		var cal_item = document.querySelectorAll(".cal_item");
+		var cal_btn = document.querySelector(".btn_cal");
+		var total_min;
+		var start_min = 1090;
+
+		function calculateTime() {
+			var total_min = 0;
+			for (var i = 0; i <= cal_item.length - 1; i++) {
+				var hour = parseInt(cal_item[i].querySelector(".input_hour").value);
+				var minute = parseInt(cal_item[i].querySelector(".input_minute").value);
+				var end_min = hour * 60 + minute;
+				total_min += end_min > start_min ? end_min - start_min : 0;
+			}
+			var total_hr = (total_min / 60).toFixed(2);
+			document.getElementById("overtime").innerText = total_hr;
+		}
+
+		cal_btn.onclick = calculateTime;
+
+		function resetTime () {
+			var inputs = document.getElementsByTagName("input");
+			for (var i = inputs.length - 1; i >= 0; i--) {
+				inputs[i].value = 0;
+			}
+		}
+
+		(function initialization () {
+			resetTime();
+		})();
+		
+	</script>
+
+</body>
+</html>
